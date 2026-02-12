@@ -3,7 +3,7 @@
 <head>
 <title>Valentine ❤️</title>
 
-<!-- Cute panda‑style font -->
+<!-- Cute panda font -->
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -25,9 +25,7 @@ body {
     box-shadow: 0 0 25px rgba(255,105,180,0.4);
 }
 
-h3 {
-    color: hotpink;
-}
+h3 { color: hotpink; }
 
 button {
     padding: 10px 25px;
@@ -47,13 +45,19 @@ button {
 .no {
     background: #ffd1dc;
     position: absolute;
-    transition: all 0.45s ease; /* slower movement */
+    transition: all 0.45s ease;
 }
 
 #result {
     margin-top: 15px;
     color: deeppink;
     font-weight: bold;
+}
+
+.music-btn {
+    background: #ff69b4;
+    color: white;
+    margin-top: 10px;
 }
 </style>
 </head>
@@ -68,18 +72,26 @@ button {
     <button class="no" id="noBtn">No 😜</button>
 
     <p id="result"></p>
+
+    <!-- Music control button -->
+    <button class="music-btn" onclick="toggleMusic()">🎵 Play / Pause Music</button>
 </div>
 
-<script>
+<!-- Background music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
 
+<script>
 function yesClicked() {
     document.getElementById("result").innerHTML =
     "Woow ❤️ You got Prince!";
+    playMusic();
 }
 
 let noBtn = document.getElementById("noBtn");
 let moveCount = 0;
-const maxMoves = 4; // after 3‑5 moves it stops
+const maxMoves = 4;
 
 noBtn.addEventListener("mouseover", moveButton);
 noBtn.addEventListener("touchstart", moveButton);
@@ -90,7 +102,7 @@ noBtn.addEventListener("click", () => {
 });
 
 function moveButton() {
-    if (moveCount >= maxMoves) return; // stop moving
+    if (moveCount >= maxMoves) return;
 
     let x = Math.random() * (window.innerWidth - 120);
     let y = Math.random() * (window.innerHeight - 60);
@@ -101,13 +113,17 @@ function moveButton() {
     moveCount++;
 }
 
+let music = document.getElementById("bgMusic");
+
+function playMusic() {
+    music.play().catch(()=>{});
+}
+
+function toggleMusic() {
+    if (music.paused) music.play();
+    else music.pause();
+}
 </script>
-
-
-<!-- Background romantic music (replace music.mp3 with your GitHub raw file link) -->
-<audio autoplay loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
 
 </body>
 </html>
